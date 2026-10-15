@@ -1,0 +1,84 @@
+.igo-header {
+  --igo-green: #1B5E20;
+  --igo-green-dark: #144a18;
+  --igo-text: #1f2937;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  font-family: 'Jost', sans-serif;
+  background: #fff;
+}
+.igo-container { width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 24px; }
+
+/* Utility bar */
+.igo-topbar { background: var(--igo-green); color: #fff; font-size: 13px; letter-spacing: 0.04em; }
+.igo-topbar__inner { display: flex; justify-content: flex-end; gap: 28px; padding-top: 8px; padding-bottom: 8px; }
+.igo-topbar a { display: inline-flex; align-items: center; gap: 6px; color: #fff; text-decoration: none; }
+.igo-topbar a:hover { text-decoration: underline; }
+
+/* Main nav */
+.igo-nav { background: #fff; border-bottom: 1px solid rgba(0,0,0,.06); transition: box-shadow .3s; }
+.igo-header.is-scrolled .igo-nav { box-shadow: 0 4px 18px rgba(0,0,0,.08); }
+.igo-nav__inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 76px; transition: height .3s; }
+.igo-header.is-scrolled .igo-nav__inner { height: 64px; }
+
+.igo-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; flex-shrink: 0; }
+.igo-logo img { height: 48px; width: 48px; object-fit: contain; }
+.igo-logo__text { display: flex; flex-direction: column; line-height: 1.05; color: var(--igo-green); }
+.igo-logo__text strong { font-weight: 700; font-size: 22px; letter-spacing: 0.06em; }
+.igo-logo__text small { font-weight: 500; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; }
+
+.igo-menu { display: flex; align-items: center; gap: 28px; list-style: none; margin: 0 auto; padding: 0; }
+.igo-link {
+  position: relative; display: inline-block; padding: 8px 0;
+  font-family: 'Jost', sans-serif; font-weight: 500; font-size: 14px;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--igo-text); text-decoration: none; transition: color .25s;
+}
+.igo-link::after {
+  content: ''; position: absolute; left: 0; bottom: 0; width: 100%; height: 2px;
+  background: var(--igo-green); transform: scaleX(0); transform-origin: left; transition: transform .3s ease;
+}
+.igo-link:hover { color: var(--igo-green); }
+.igo-link:hover::after { transform: scaleX(1); }
+
+.igo-cta {
+  display: inline-block; flex-shrink: 0; padding: 12px 24px; border-radius: 999px;
+  background: var(--igo-green); color: #fff; text-decoration: none;
+  font-family: 'Jost', sans-serif; font-weight: 500; font-size: 14px;
+  text-transform: uppercase; letter-spacing: 0.08em; text-align: center;
+  transition: background .25s, transform .25s, box-shadow .25s;
+}
+.igo-cta:hover { background: var(--igo-green-dark); transform: translateY(-1px); box-shadow: 0 8px 18px rgba(27,94,32,.25); }
+
+.igo-toggle { display: none; background: none; border: 0; padding: 8px; color: var(--igo-green); cursor: pointer; text-transform: none; letter-spacing: 0; }
+
+/* Mobile */
+.igo-mobile { display: none; }
+
+@media (max-width: 1100px) {
+  .igo-menu, .igo-nav__inner > .igo-cta { display: none; }
+  .igo-toggle { display: inline-flex; }
+  .igo-nav__inner { justify-content: space-between; }
+
+  .igo-mobile {
+    display: block; position: absolute; left: 0; right: 0; top: 100%;
+    background: #fff; padding: 8px 24px 24px; border-top: 1px solid rgba(0,0,0,.06);
+    box-shadow: 0 12px 24px rgba(0,0,0,.1);
+    max-height: calc(100vh - 110px); overflow-y: auto;
+    opacity: 0; visibility: hidden; transform: translateY(-8px);
+    transition: opacity .25s, transform .25s, visibility .25s;
+  }
+  .igo-mobile.is-open { opacity: 1; visibility: visible; transform: none; }
+  .igo-mobile ul { list-style: none; margin: 0 0 16px; padding: 0; }
+  .igo-mobile li a {
+    display: block; padding: 14px 0; border-bottom: 1px solid rgba(0,0,0,.06);
+    font-family: 'Jost', sans-serif; font-weight: 500; font-size: 16px;
+    text-transform: uppercase; letter-spacing: 0.08em; color: var(--igo-text); text-decoration: none;
+  }
+  .igo-mobile li a:hover { color: var(--igo-green); }
+  .igo-cta--block { display: block; width: 100%; }
+}
+
+@media (max-width: 560px) {
+  .igo-topbar__inner { justify-content: center; gap: 16px; font-size: 12px; }
+  .igo-logo__text small { display: none; }
+}

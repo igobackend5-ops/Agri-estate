@@ -1,0 +1,81 @@
+import React, { useEffect, useRef, useState } from 'react';
+import { FileCheck2, HeartHandshake, Sprout, UserCog, MapPin, ShieldCheck } from 'lucide-react';
+import './WhyChooseUs.css';
+
+const FEATURES = [
+  { Icon: FileCheck2, title: 'Verified Properties', text: 'Genuine land details, documentation guidance, and transparency.' },
+  { Icon: HeartHandshake, title: 'End-to-End Support', text: 'Support from land purchase to farm development.' },
+  { Icon: Sprout, title: 'Sustainable Farming', text: 'Encouraging eco-friendly and productive farming practices.' },
+  { Icon: UserCog, title: 'Expert Guidance', text: 'Practical guidance for choosing the right farm model.' },
+  { Icon: MapPin, title: 'Pan-India Service', text: 'Assistance across India.' },
+  { Icon: ShieldCheck, title: 'Trusted by Farmers', text: 'A commitment to transparent processes and dependable support.' },
+];
+
+const Leaf: React.FC<{ className?: string }> = ({ className }) => (
+  <svg className={className} viewBox="0 0 24 24" aria-hidden="true">
+    <defs>
+      <linearGradient id="wc-leaf-g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stopColor="#a5e36b" />
+        <stop offset="1" stopColor="#2e9e1f" />
+      </linearGradient>
+    </defs>
+    <path d="M4 13c0-6 5-9 16-9 0 11-4 16-10 16-4 0-6-2-6-7Z" fill="url(#wc-leaf-g)" />
+  </svg>
+);
+
+const WhyChooseUs: React.FC = () => {
+  const ref = useRef<HTMLElement>(null);
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || !('IntersectionObserver' in window)) { setInView(true); return; }
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setInView(true); io.disconnect(); } }, { threshold: 0.12 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <section ref={ref} className={`wc-section${inView ? ' is-in' : ''}`} aria-labelledby="wc-heading">
+      <div className="wc-inner">
+        <figure className="wc-media">
+          <img
+            src="/images/why/why-farmer-rep.webp"
+            alt="An IGO Agri Estate representative discussing farmland with a farmer in a green field"
+            width={1280}
+            height={940}
+            loading="lazy"
+            decoding="async"
+          />
+          <figcaption className="wc-caption">
+            <Leaf className="wc-caption__leaf" />
+            <span>Sustainable Farming for a Better Tomorrow</span>
+          </figcaption>
+        </figure>
+
+        <div className="wc-content">
+          <div className="wc-eyebrow">
+            <span className="wc-eyebrow__line" />
+            <span className="wc-eyebrow__text">Why Choose Us</span>
+            <Leaf className="wc-eyebrow__leaf" />
+            <span className="wc-eyebrow__line" />
+          </div>
+          <h2 id="wc-heading" className="wc-title">Why Choose <span>IGO</span> Agri Estate?</h2>
+          <p className="wc-sub">We are more than a land platform — we are your long-term partner in sustainable agriculture.</p>
+
+          <ul className="wc-grid">
+            {FEATURES.map(({ Icon, title, text }, i) => (
+              <li key={title} className="wc-card" style={{ ['--i' as string]: i } as React.CSSProperties}>
+                <span className="wc-card__icon"><Icon size={26} strokeWidth={2.1} /></span>
+                <h3 className="wc-card__title">{title}</h3>
+                <span className="wc-card__rule" />
+                <p className="wc-card__text">{text}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default WhyChooseUs;

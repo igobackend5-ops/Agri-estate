@@ -1,0 +1,44 @@
+.ps-wrap { position: relative; width: 100%; min-width: 900px; max-width: 1536px; margin: 0 auto; aspect-ratio: 1536 / 784; overflow: hidden; }
+.ps-img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; transition: opacity .9s cubic-bezier(.21,.8,.32,1), transform .9s cubic-bezier(.21,.8,.32,1); }
+.ps-wrap.ps-pre .ps-img { opacity: 0; transform: translateY(28px) scale(.985); }
+
+/* Column overlays: soft glow lights up in sequence and on hover */
+.ps-col { position: absolute; border-radius: 120px 120px 44px 44px; background: linear-gradient(180deg, rgba(143,224,90,0), rgba(143,224,90,0));
+  box-shadow: 0 0 0 0 rgba(46,158,31,0); transition: box-shadow .35s ease, background .35s ease, transform .35s ease; }
+.ps-col:hover { transform: translateY(-6px); animation: none; box-shadow: 0 0 0 2px rgba(46,158,31,.55), 0 18px 38px rgba(27,94,32,.28); background: linear-gradient(180deg, rgba(143,224,90,.16), rgba(255,255,255,0) 60%); }
+.ps-wrap.ps-pre .ps-col { opacity: 0; }
+.ps-wrap:not(.ps-pre) .ps-col { animation: ps-light 9s ease-in-out infinite; animation-delay: calc(var(--i) * 1.5s + 1.2s); }
+@keyframes ps-light {
+  0%, 16%, 100% { box-shadow: 0 0 0 0 rgba(46,158,31,0); background: linear-gradient(180deg, rgba(143,224,90,0), rgba(143,224,90,0)); }
+  4%, 11% { box-shadow: 0 0 0 2px rgba(46,158,31,.45), 0 10px 30px rgba(46,158,31,.25); background: linear-gradient(180deg, rgba(143,224,90,.14), rgba(255,255,255,0) 60%); }
+}
+
+/* Number badge pulse rings */
+.ps-ping { position: absolute; width: 46px; height: 46px; margin: -23px 0 0 -23px; border-radius: 50%; pointer-events: none; }
+.ps-ping::before, .ps-ping::after { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 2px solid rgba(46,158,31,.6); opacity: 0; }
+.ps-wrap:not(.ps-pre) .ps-ping::before { animation: ps-ring 2.8s ease-out infinite; animation-delay: calc(var(--i) * .35s); }
+.ps-wrap:not(.ps-pre) .ps-ping::after { animation: ps-ring 2.8s ease-out infinite; animation-delay: calc(var(--i) * .35s + 1.4s); }
+@keyframes ps-ring { 0% { transform: scale(.9); opacity: .8; } 100% { transform: scale(2); opacity: 0; } }
+
+/* Light-trail connectors */
+.ps-trails { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.ps-trail-base { opacity: 0; transition: opacity .8s ease .5s; }
+.ps-wrap:not(.ps-pre) .ps-trail-base { opacity: 1; }
+.ps-trail-beam, .ps-trail-glow { stroke-dasharray: .32 1.4; stroke-dashoffset: .32; opacity: 0; }
+.ps-wrap:not(.ps-pre) .ps-trail-beam { animation: ps-beam 5.4s linear infinite; animation-delay: calc(var(--i) * .75s + .6s); }
+.ps-wrap:not(.ps-pre) .ps-trail-glow { animation: ps-beam 5.4s linear infinite; animation-delay: calc(var(--i) * .75s + .6s); }
+@keyframes ps-beam {
+  0% { stroke-dashoffset: .32; opacity: 0; }
+  6% { opacity: 1; }
+  16% { stroke-dashoffset: -1; opacity: 1; }
+  20%, 100% { stroke-dashoffset: -1; opacity: 0; }
+}
+
+/* Reduced motion: no movement, just a subtle static connector */
+@media (prefers-reduced-motion: reduce) {
+  .ps-img, .ps-col, .ps-ping::before, .ps-ping::after { animation: none !important; transition: none !important; }
+  .ps-wrap.ps-pre .ps-img, .ps-wrap.ps-pre .ps-col { opacity: 1; transform: none; }
+  .ps-ping { display: none; }
+  .ps-trail-base { opacity: 1 !important; transition: none; }
+  .ps-trail-beam, .ps-trail-glow { animation: none !important; opacity: 0; }
+}

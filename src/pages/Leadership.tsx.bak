@@ -1,0 +1,185 @@
+import React from 'react';
+import SEO from '../components/SEO';
+
+interface Person {
+  name: string;
+  role: string;
+  img: string;
+}
+
+const IMG = '/images/leadership/';
+
+const tier1: Person[] = [
+  { name: 'Dr. John Yesudhas', role: 'Founder & Group CEO', img: 'ceo-john-yesudhas.webp' },
+];
+
+const tier2: Person[] = [
+  { name: 'Mrs. Reega Merlin Esther Newton', role: 'Director, IGO Group', img: 'reega-merlin-esther-newton.webp' },
+];
+
+const tier3: Person[] = [
+  { name: 'Mr. Vignesh Sridharan', role: 'General Manager, IGO Group', img: 'vignesh-sridharan.webp' },
+  { name: 'Mr. Venkatnarayanan', role: 'National Sales Head, IGO Group', img: 'venkatnarayanan.webp' },
+  { name: 'Mr. Basha', role: 'National Head, L1 Officer, IGO Agri Estate & Vendor Dpt', img: 'am-basha.webp' },
+  { name: 'Mr. Shiva', role: 'National Head, L1 Officer, IGO Buyback, Farmers Factory, Valluvam, Farm Gate Mandi', img: 'shiva.webp' },
+  { name: 'Mr. Deepak', role: 'National Head, L1 Officer, IFIN, IGO Academy, Marketing, Engineering, Site Visit, CRM, Rental, Polyhouse', img: 'deepak-adithiya.webp' },
+  { name: 'Mr. Saravanan', role: 'National Head, L1 Officer, IGO Purchase, Agri Mart', img: 'saravanan.webp' },
+];
+
+const tier4: Person[] = [
+  { name: 'Mr. Amirthalingam', role: 'Head, Farmers Factory', img: 'amirthalingam-s.webp' },
+  { name: 'Mr. Velladurai', role: 'Head, Legal and Data Management', img: 'velladurai.webp' },
+  { name: 'Mr. Ramprasath', role: 'SMO, Agri Dpt', img: 'ram-prasath.webp' },
+  { name: 'Mr. Karthikeyan', role: 'SMO, Agri Dpt', img: 'karthikeyan.webp' },
+  { name: 'Mr. Prasath', role: 'SMO, Engineering Dpt', img: 'prasath-rajeswaran.webp' },
+  { name: 'Mr. Vignesh', role: 'Head, IT & AI', img: 'vignesh-a.webp' },
+  { name: 'Mr. Tharun', role: 'Head, CEO Office Admin', img: 'tharun-kumar-a.webp' },
+  { name: 'Mr. Yuthish', role: 'Head, IGO R&D & New Projects', img: 'yuthish-priyan.webp' },
+  { name: 'Mr. Udaykiran', role: 'SMO, IGO Business Development', img: 'udaykiran.webp' },
+  { name: 'Ms. Aarthi', role: 'Head, IGO Marketing', img: 'aarthi.webp' },
+  { name: 'Mr. Sharu', role: 'Head, IGO Marketing', img: 'sharuk.webp' },
+  { name: 'Ms. Shanmathi S', role: 'Head, IGO Academy', img: 'shanmathi-vignesh.webp' },
+  { name: 'Ms. Maheshwari', role: 'Head, IGO Accounts', img: 'maheshwari.webp' },
+  { name: 'Mr. Hariharan', role: 'SMO, IGO R&D & New Projects', img: 'hari-haran-k.webp' },
+  { name: 'Mr. Surya', role: 'SMO, IGO Cocopeat Factory', img: 'surya.webp' },
+  { name: 'Mr. Punith', role: 'SMO, IGO Site Visits', img: 'punith.webp' },
+  { name: 'Ms. Amritha', role: 'Head, Valluvam Products', img: 'amritha.webp' },
+  { name: 'Mr. Douglas', role: 'SMO, Legal & IGO Hostel', img: 'douglas.webp' },
+  { name: 'Mr. Sathish', role: 'HR, IGO Group', img: 'sathish.webp' },
+  { name: 'Mr. Raagul Raj R', role: 'Head, JV Engineering', img: 'raagul-raj-r.webp' },
+  { name: 'Mr. Mowli', role: 'SMO, FF Field Business Development', img: 'mowli.webp' },
+  { name: 'Mr. Rajesh', role: 'SMO, IGO Engineering Dpt', img: 'rajesh.webp' },
+];
+
+const tier5: Person[] = [
+  { name: 'Mr. Sanjay Vasanthakumar', role: 'Area Manager, Agri Dpt', img: 'sanjay-vasanthakumar.webp' },
+  { name: 'Mr. Ranjeet Kumar', role: 'Area Manager, Agri Dpt', img: 'ranjeet-kumar.webp' },
+  { name: 'Mr. Jitendra Kumar', role: 'Area Manager, Agri Dpt', img: 'jitendra-kumar.webp' },
+  { name: 'Mr. Keerthieeswaran', role: 'Area Manager, Agri Dpt', img: 'keerthieeswaran.webp' },
+];
+
+const stats = [
+  { value: '26+', label: 'Brands' },
+  { value: '18+', label: 'Divisions' },
+  { value: '2000+', label: 'Team Strength' },
+  { value: '28', label: 'States' },
+  { value: '700+', label: 'Districts' },
+];
+
+const Card: React.FC<{ p: Person; large?: boolean }> = ({ p, large }) => (
+  <article className={`group bg-white rounded-2xl border border-[#1B5E20]/10 shadow-sm hover:shadow-lg transition-shadow overflow-hidden text-center ${large ? 'w-full max-w-[300px]' : ''}`}>
+    <div className="aspect-[4/5] overflow-hidden bg-[#eef5ea]">
+      <img
+        src={`${IMG}${p.img}`}
+        alt={p.name}
+        loading="lazy"
+        className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+      />
+    </div>
+    <div className="p-4">
+      <h3 className="text-base font-semibold text-[#0f4d24] normal-case tracking-normal leading-snug">{p.name}</h3>
+      <p className="mt-1 text-sm text-slate-600 leading-snug">{p.role}</p>
+    </div>
+  </article>
+);
+
+const Connector: React.FC = () => (
+  <div className="flex justify-center" aria-hidden="true">
+    <span className="block w-px h-10 md:h-14 bg-[#1B5E20]/35" />
+  </div>
+);
+
+const TierHeading: React.FC<{ n: number; title: string }> = ({ n, title }) => (
+  <div className="text-center mb-8">
+    <span className="inline-block px-5 py-2 rounded-full bg-[#1B5E20] text-white text-xs md:text-sm font-medium uppercase tracking-[0.1em]">
+      Tier {n} — {title}
+    </span>
+  </div>
+);
+
+const Leadership: React.FC = () => (
+  <main className="bg-white">
+    <SEO
+      title="Leadership"
+      description="Meet the leaders driving India's fastest-growing farming ecosystem — from executive vision to department excellence."
+      canonical="/leadership"
+      ogImage="https://www.igoagriestate.com/images/leadership/leadership-core-managers.webp"
+    />
+
+    {/* Hero */}
+    <section className="relative overflow-hidden bg-[#0f3d1f] pt-40 pb-16 md:pt-48 md:pb-24">
+      <div className="container-pro relative z-10 grid lg:grid-cols-2 gap-10 items-center">
+        <div>
+          <p className="text-sm font-medium uppercase tracking-[0.2em] text-lime-300">Our Leadership</p>
+          <h1 className="mt-4 text-4xl md:text-6xl font-bold text-white leading-tight normal-case tracking-normal">
+            The Minds Behind IGO
+          </h1>
+          <p className="mt-5 text-lg md:text-xl text-white/85 max-w-xl leading-relaxed">
+            Meet the leaders driving India's fastest-growing farming ecosystem — from executive vision to department excellence.
+          </p>
+        </div>
+        <div className="rounded-3xl overflow-hidden shadow-2xl border border-white/10">
+          <img
+            src={`${IMG}leadership-core-managers.webp`}
+            alt="IGO Group leadership team"
+            className="w-full h-full object-cover"
+          />
+        </div>
+      </div>
+    </section>
+
+    {/* Hierarchy */}
+    <section className="py-16 md:py-24 bg-[#f6faf1]">
+      <div className="container-pro">
+        <div className="text-center mb-14">
+          <h2 className="text-3xl md:text-5xl font-bold text-[#0f4d24] normal-case tracking-normal">IGO Group of Companies</h2>
+          <p className="mt-3 text-sm md:text-base font-medium uppercase tracking-[0.2em] text-[#2e9e1f]">Hierarchy Chart</p>
+        </div>
+
+        <TierHeading n={1} title="Founder & Group CEO" />
+        <div className="flex justify-center">{tier1.map((p) => <Card key={p.name} p={p} large />)}</div>
+
+        <Connector />
+        <TierHeading n={2} title="Directors" />
+        <div className="flex justify-center">{tier2.map((p) => <Card key={p.name} p={p} large />)}</div>
+
+        <Connector />
+        <TierHeading n={3} title="General Manager, National Sales Head & National Heads" />
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 max-w-5xl mx-auto">
+          {tier3.map((p) => <Card key={p.name} p={p} />)}
+        </div>
+
+        <Connector />
+        <TierHeading n={4} title="Core Managers & Department Heads" />
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+          {tier4.map((p) => <Card key={p.name} p={p} />)}
+        </div>
+
+        <Connector />
+        <TierHeading n={5} title="Area Managers, Agri Dpt" />
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 max-w-5xl mx-auto">
+          {tier5.map((p) => <Card key={p.name} p={p} />)}
+        </div>
+      </div>
+    </section>
+
+    {/* Stats */}
+    <section className="bg-[#1B5E20] py-14">
+      <div className="container-pro text-center">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
+          {stats.map((s) => (
+            <div key={s.label}>
+              <div className="text-4xl md:text-5xl font-bold text-white">{s.value}</div>
+              <div className="mt-1 text-sm uppercase tracking-[0.12em] text-white/80">{s.label}</div>
+            </div>
+          ))}
+        </div>
+        <p className="mt-10 text-lg text-white/90 max-w-3xl mx-auto">
+          A diversified farming-tech conglomerate connecting farms, food, fintech and technology across India.
+        </p>
+      </div>
+    </section>
+  </main>
+);
+
+export default Leadership;
