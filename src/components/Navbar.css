@@ -82,3 +82,7 @@
   .igo-topbar__inner { justify-content: center; gap: 16px; font-size: 12px; }
   .igo-logo__text small { display: none; }
 }
+
+.igo-link.is-active { color: var(--igo-green); }
+.igo-link.is-active::after { transform: scaleX(1); }
+.igo-mobile li a.is-active { color: var(--igo-green); }

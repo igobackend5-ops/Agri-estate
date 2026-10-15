@@ -1,0 +1,224 @@
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Phone, Mail, MapPin, Send, MessageSquare } from 'lucide-react';
+import { submitLead } from '../lib/leadsService';
+import SEO from '../components/SEO';
+interface ContactProps {
+  /** false when this component is embedded as a section inside another page (e.g. the homepage),
+   * so it doesn't emit a duplicate <h1>/SEO tags for that page. Defaults to true (standalone /contact route). */
+  standalone?: boolean;
+}
+
+const Contact: React.FC<ContactProps> = ({ standalone = true }) => {
+  const Heading = standalone ? 'h1' : 'h2';
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    subject: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    try {
+      await submitLead({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        notes: `Subject: ${formData.subject}\n\n${formData.message}`,
+        type: 'contact'
+      });
+      setIsSuccess(true);
+    } catch (error) {
+      console.error('Submission failed', error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+  return (
+    <>
+      {standalone && (
+        <SEO
+          title="Contact IGO Agri Estates | Talk to Our Farm Investment Advisors"
+          description="Get in touch with IGO Agri Estates — India's trusted agricultural land advisors. Call +91-7397789803, email us, or visit our Chennai office. We serve buyers and investors across Tamil Nadu, Karnataka, Maharashtra, Andhra Pradesh & Telangana."
+          canonical="/contact"
+          keywords="contact IGO agri estates, agricultural land advisor India, farm investment consultant Tamil Nadu, agri estate inquiry, buy farmland India contact"
+          schema={{
+            '@context': 'https://schema.org',
+            '@type': 'ContactPage',
+            '@id': 'https://www.igoagriestate.com/contact',
+            name: 'Contact IGO Agri Estates',
+            url: 'https://www.igoagriestate.com/contact',
+            mainEntity: {
+              '@type': 'Organization',
+              name: 'IGO Agri Estates',
+              telephone: '+91-7397789803',
+              email: 'bd2@igogroups.com',
+              address: {
+                '@type': 'PostalAddress',
+                streetAddress: 'No 17, Kovalan Street, 2nd Main Road, Uthandi Kanathur',
+                addressLocality: 'Chennai',
+                addressRegion: 'Tamil Nadu',
+                postalCode: '600119',
+                addressCountry: 'IN'
+              }
+            }
+          }}
+        />
+      )}
+    <section id="contact" className="py-20 bg-background border-t border-black/5">
+      <div className="container-pro">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="max-w-4xl mx-auto text-center mb-20"
+        >
+          <p className="text-[10px] font-black text-[#00814a] uppercase tracking-[0.5em] mb-6">Connect With Us</p>
+          <Heading className="text-6xl font-black text-primary uppercase tracking-tighter leading-none mb-8">
+            The Institutional <br /><span className="text-secondary italic font-serif">Support Desk</span>
+          </Heading>
+          <p className="text-xl text-text-muted font-light leading-relaxed">
+            Have questions about a specific listing or our managed services? Our experts are here to help you navigate the landscape of agricultural investments.
+          </p>
+        </motion.div>
+        <div className="grid lg:grid-cols-12 gap-20">
+          <div className="lg:col-span-4 space-y-8">
+            <div className="glass p-10 rounded-[40px] border-black/5">
+              <h3 className="text-xs font-black text-primary uppercase tracking-widest mb-10">Regional Offices</h3>
+              <div className="space-y-10">
+                <div className="flex items-start space-x-6">
+                  <div className="w-12 h-12 bg-gray-50 rounded-2xl flex items-center justify-center text-secondary shrink-0">
+                    <MapPin size={20} />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-primary mb-1">Main Office</h4>
+                    <p className="text-xs text-text-muted leading-relaxed">
+                      No 17, Kovalan Street, 2nd Main Road,<br />
+                      Uthandi Kanathur, Chennai - 600119
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start space-x-6">
+                  <div className="w-12 h-12 bg-gray-50 rounded-2xl flex items-center justify-center text-secondary shrink-0">
+                    <Phone size={20} />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-primary mb-1">Contact Line</h4>
+                    <p className="text-xs text-text-muted leading-relaxed">+91 7397789803</p>
+                    <p className="text-xs text-text-muted leading-relaxed">+91 7397789804</p>
+                    <p className="text-xs text-text-muted leading-relaxed">+91 7397789805</p>
+                  </div>
+                </div>
+                <div className="flex items-start space-x-6">
+                  <div className="w-12 h-12 bg-gray-50 rounded-2xl flex items-center justify-center text-secondary shrink-0">
+                    <Mail size={20} />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-primary mb-1">Email Desk</h4>
+                    <p className="text-xs text-text-muted leading-relaxed">bankingbackend.indiagreen@gmail.com</p>
+                    <p className="text-xs text-text-muted leading-relaxed">bd2@igogroups.com</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="lg:col-span-8">
+            {isSuccess ? (
+              <div className="bg-emerald-50 p-16 rounded-[40px] border border-emerald-100 text-center flex flex-col items-center justify-center h-full">
+                <div className="w-20 h-20 bg-emerald-500 rounded-full flex items-center justify-center text-white mb-8">
+                  <Send size={32} />
+                </div>
+                <h3 className="text-3xl font-black text-emerald-900 uppercase tracking-tighter mb-4">Message Sent</h3>
+                <p className="text-emerald-700/60 font-medium">Thank you for reaching out. A relationship manager will be in touch shortly.</p>
+                <button onClick={() => setIsSuccess(false)} className="mt-10 text-[10px] font-black uppercase tracking-widest text-emerald-700 hover:underline">Send Another Message</button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="bg-white p-12 rounded-[40px] shadow-[0_48px_96px_-24px_rgba(0,0,0,0.1)] border border-black/5 space-y-8">
+                <div className="grid md:grid-cols-2 gap-8">
+                  <div className="space-y-2">
+                    <label htmlFor="contact-name" className="text-[10px] font-black uppercase tracking-widest text-primary ml-1">Your Name</label>
+                    <input
+                      id="contact-name"
+                      required
+                      type="text"
+                      value={formData.name}
+                      onChange={(e) => setFormData({...formData, name: e.target.value})}
+                      className="w-full bg-gray-50 border-none px-6 py-4 rounded-xl text-sm focus:ring-2 focus:ring-[#00814a] transition-all"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label htmlFor="contact-email" className="text-[10px] font-black uppercase tracking-widest text-primary ml-1">Email Address</label>
+                    <input
+                      id="contact-email"
+                      required
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => setFormData({...formData, email: e.target.value})}
+                      className="w-full bg-gray-50 border-none px-6 py-4 rounded-xl text-sm focus:ring-2 focus:ring-[#00814a] transition-all"
+                    />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor="contact-phone" className="text-[10px] font-black uppercase tracking-widest text-primary ml-1">Phone Number</label>
+                  <input
+                    id="contact-phone"
+                    required
+                    type="tel"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                    placeholder="+91 XXXXX XXXXX"
+                    className="w-full bg-gray-50 border-none px-6 py-4 rounded-xl text-sm focus:ring-2 focus:ring-[#00814a] transition-all"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor="contact-subject" className="text-[10px] font-black uppercase tracking-widest text-primary ml-1">Subject</label>
+                  <input
+                    id="contact-subject"
+                    required
+                    type="text"
+                    value={formData.subject}
+                    onChange={(e) => setFormData({...formData, subject: e.target.value})}
+                    placeholder="e.g. Inquiry about Sandalwood Estates"
+                    className="w-full bg-gray-50 border-none px-6 py-4 rounded-xl text-sm focus:ring-2 focus:ring-[#00814a] transition-all"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor="contact-message" className="text-[10px] font-black uppercase tracking-widest text-primary ml-1">Your Message</label>
+                  <textarea
+                    id="contact-message"
+                    required
+                    value={formData.message}
+                    onChange={(e) => setFormData({...formData, message: e.target.value})}
+                    rows={6}
+                    placeholder="How can we assist you today?"
+                    className="w-full bg-gray-50 border-none px-6 py-4 rounded-xl text-sm focus:ring-2 focus:ring-[#00814a] transition-all resize-none"
+                  />
+                </div>
+                <button 
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-primary text-white py-5 rounded-2xl font-black uppercase tracking-[0.3em] text-xs hover:bg-[#00814a] transition-all shadow-xl flex items-center justify-center space-x-3 disabled:opacity-50"
+                >
+                  {isSubmitting ? (
+                    <span>Sending...</span>
+                  ) : (
+                    <>
+                      <MessageSquare size={16} />
+                      <span>Send Message</span>
+                    </>
+                  )}
+                </button>
+              </form>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+    </>
+  );
+};
+
+export default Contact;

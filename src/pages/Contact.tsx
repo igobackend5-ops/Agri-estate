@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Phone, Mail, MapPin, Send, MessageSquare } from 'lucide-react';
+import { Phone, Mail, MapPin, Send, MessageSquare, User, FileText, ArrowRight, Sprout } from 'lucide-react';
+import './Contact.css';
 import { submitLead } from '../lib/leadsService';
 import SEO from '../components/SEO';
 interface ContactProps {
@@ -69,152 +70,121 @@ const Contact: React.FC<ContactProps> = ({ standalone = true }) => {
           }}
         />
       )}
-    <section id="contact" className="py-20 bg-background border-t border-black/5">
-      <div className="container-pro">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
+    <section id="contact" className={`ct-section${standalone ? " ct-section--page" : ""}`}>
+      <div className="ct-inner">
+        <motion.aside
+          className="ct-info"
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          className="max-w-4xl mx-auto text-center mb-20"
+          transition={{ duration: 0.7 }}
         >
-          <p className="text-[10px] font-black text-[#00814a] uppercase tracking-[0.5em] mb-6">Connect With Us</p>
-          <Heading className="text-6xl font-black text-primary uppercase tracking-tighter leading-none mb-8">
-            The Institutional <br /><span className="text-secondary italic font-serif">Support Desk</span>
-          </Heading>
-          <p className="text-xl text-text-muted font-light leading-relaxed">
-            Have questions about a specific listing or our managed services? Our experts are here to help you navigate the landscape of agricultural investments.
-          </p>
-        </motion.div>
-        <div className="grid lg:grid-cols-12 gap-20">
-          <div className="lg:col-span-4 space-y-8">
-            <div className="glass p-10 rounded-[40px] border-black/5">
-              <h3 className="text-xs font-black text-primary uppercase tracking-widest mb-10">Regional Offices</h3>
-              <div className="space-y-10">
-                <div className="flex items-start space-x-6">
-                  <div className="w-12 h-12 bg-gray-50 rounded-2xl flex items-center justify-center text-secondary shrink-0">
-                    <MapPin size={20} />
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-bold text-primary mb-1">Main Office</h4>
-                    <p className="text-xs text-text-muted leading-relaxed">
-                      No 17, Kovalan Street, 2nd Main Road,<br />
-                      Uthandi Kanathur, Chennai - 600119
-                    </p>
-                  </div>
+          <figure className="ct-photo">
+            <img src="/images/login-bg.png" alt="Sunrise over lush green farmland" width={1024} height={1024} loading="lazy" decoding="async" />
+            <figcaption className="ct-photo__text">
+              <span>Get in Touch</span>
+              <span>We&rsquo;re Here to Help</span>
+              <i aria-hidden="true" />
+            </figcaption>
+          </figure>
+          <div className="ct-info__body">
+            <div className="ct-label"><span>Our Contact Details</span><i /></div>
+            <ul className="ct-list">
+              <li>
+                <span className="ct-ico"><MapPin size={20} /></span>
+                <div>
+                  <h3>Main Office</h3>
+                  <p>No 17, Kovalan Street, 2nd Main Road,<br />Uthandi Kanathur, Chennai - 600119</p>
                 </div>
-                <div className="flex items-start space-x-6">
-                  <div className="w-12 h-12 bg-gray-50 rounded-2xl flex items-center justify-center text-secondary shrink-0">
-                    <Phone size={20} />
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-bold text-primary mb-1">Contact Line</h4>
-                    <p className="text-xs text-text-muted leading-relaxed">+91 7397789803</p>
-                    <p className="text-xs text-text-muted leading-relaxed">+91 7397789804</p>
-                    <p className="text-xs text-text-muted leading-relaxed">+91 7397789805</p>
-                  </div>
+              </li>
+              <li>
+                <span className="ct-ico"><Phone size={20} /></span>
+                <div>
+                  <h3>Contact Line</h3>
+                  <p><a href="tel:+917397789803">+91 7397789803</a></p>
+                  <p><a href="tel:+917397789804">+91 7397789804</a></p>
+                  <p><a href="tel:+917397789805">+91 7397789805</a></p>
                 </div>
-                <div className="flex items-start space-x-6">
-                  <div className="w-12 h-12 bg-gray-50 rounded-2xl flex items-center justify-center text-secondary shrink-0">
-                    <Mail size={20} />
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-bold text-primary mb-1">Email Desk</h4>
-                    <p className="text-xs text-text-muted leading-relaxed">bankingbackend.indiagreen@gmail.com</p>
-                    <p className="text-xs text-text-muted leading-relaxed">bd2@igogroups.com</p>
-                  </div>
+              </li>
+              <li>
+                <span className="ct-ico"><Mail size={20} /></span>
+                <div>
+                  <h3>Email Desk</h3>
+                  <p><a href="mailto:bankingbackend.indiagreen@gmail.com">bankingbackend.indiagreen@gmail.com</a></p>
+                  <p><a href="mailto:bd2@igogroups.com">bd2@igogroups.com</a></p>
                 </div>
-              </div>
+              </li>
+            </ul>
+          </div>
+        </motion.aside>
+
+        <motion.div
+          className="ct-card"
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.12 }}
+        >
+          {isSuccess ? (
+            <div className="ct-success">
+              <span className="ct-success__icon"><Send size={30} /></span>
+              <h3>Message Sent</h3>
+              <p>Thank you for reaching out. A relationship manager will be in touch shortly.</p>
+              <button type="button" onClick={() => setIsSuccess(false)}>Send Another Message</button>
             </div>
-          </div>
-          <div className="lg:col-span-8">
-            {isSuccess ? (
-              <div className="bg-emerald-50 p-16 rounded-[40px] border border-emerald-100 text-center flex flex-col items-center justify-center h-full">
-                <div className="w-20 h-20 bg-emerald-500 rounded-full flex items-center justify-center text-white mb-8">
-                  <Send size={32} />
+          ) : (
+            <>
+              <div className="ct-eyebrow"><i /><span>Contact Us</span><i /></div>
+              <Heading className="ct-title">Let&rsquo;s Start a <span>Conversation</span></Heading>
+              <p className="ct-sub">Have a question, need assistance, or want to explore our farm projects? Fill in the form below and our team will get back to you shortly.</p>
+
+              <form onSubmit={handleSubmit} className="ct-form">
+                <div className="ct-row">
+                  <label className="ct-field" htmlFor="contact-name">
+                    <span className="ct-ico"><User size={18} /></span>
+                    <span className="ct-field__body">
+                      <span className="ct-field__label">Your Name <b>*</b></span>
+                      <input id="contact-name" required type="text" placeholder="Enter your name" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} />
+                    </span>
+                  </label>
+                  <label className="ct-field" htmlFor="contact-email">
+                    <span className="ct-ico"><Mail size={18} /></span>
+                    <span className="ct-field__body">
+                      <span className="ct-field__label">Email Address <b>*</b></span>
+                      <input id="contact-email" required type="email" placeholder="Enter your email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} />
+                    </span>
+                  </label>
                 </div>
-                <h3 className="text-3xl font-black text-emerald-900 uppercase tracking-tighter mb-4">Message Sent</h3>
-                <p className="text-emerald-700/60 font-medium">Thank you for reaching out. A relationship manager will be in touch shortly.</p>
-                <button onClick={() => setIsSuccess(false)} className="mt-10 text-[10px] font-black uppercase tracking-widest text-emerald-700 hover:underline">Send Another Message</button>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="bg-white p-12 rounded-[40px] shadow-[0_48px_96px_-24px_rgba(0,0,0,0.1)] border border-black/5 space-y-8">
-                <div className="grid md:grid-cols-2 gap-8">
-                  <div className="space-y-2">
-                    <label htmlFor="contact-name" className="text-[10px] font-black uppercase tracking-widest text-primary ml-1">Your Name</label>
-                    <input
-                      id="contact-name"
-                      required
-                      type="text"
-                      value={formData.name}
-                      onChange={(e) => setFormData({...formData, name: e.target.value})}
-                      className="w-full bg-gray-50 border-none px-6 py-4 rounded-xl text-sm focus:ring-2 focus:ring-[#00814a] transition-all"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label htmlFor="contact-email" className="text-[10px] font-black uppercase tracking-widest text-primary ml-1">Email Address</label>
-                    <input
-                      id="contact-email"
-                      required
-                      type="email"
-                      value={formData.email}
-                      onChange={(e) => setFormData({...formData, email: e.target.value})}
-                      className="w-full bg-gray-50 border-none px-6 py-4 rounded-xl text-sm focus:ring-2 focus:ring-[#00814a] transition-all"
-                    />
-                  </div>
+                <label className="ct-field" htmlFor="contact-phone">
+                  <span className="ct-ico"><Phone size={18} /></span>
+                  <span className="ct-field__body">
+                    <span className="ct-field__label">Phone Number <b>*</b></span>
+                    <input id="contact-phone" required type="tel" placeholder="+91 XXXXX XXXXX" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} />
+                  </span>
+                </label>
+                <label className="ct-field" htmlFor="contact-subject">
+                  <span className="ct-ico"><FileText size={18} /></span>
+                  <span className="ct-field__body">
+                    <span className="ct-field__label">Subject <b>*</b></span>
+                    <input id="contact-subject" required type="text" placeholder="e.g. Inquiry about Sandalwood Estates" value={formData.subject} onChange={(e) => setFormData({ ...formData, subject: e.target.value })} />
+                  </span>
+                </label>
+                <label className="ct-field ct-field--area" htmlFor="contact-message">
+                  <span className="ct-ico"><MessageSquare size={18} /></span>
+                  <span className="ct-field__body">
+                    <span className="ct-field__label">Your Message <b>*</b></span>
+                    <textarea id="contact-message" required rows={4} placeholder="How can we assist you today?" value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} />
+                  </span>
+                </label>
+
+                <div className="ct-actions">
+                  <button type="submit" disabled={isSubmitting} className="ct-btn">
+                    {isSubmitting ? <span>Sending...</span> : (<><span>Send Message</span><ArrowRight size={16} /></>)}
+                  </button>
+                  <p className="ct-tag"><Sprout size={26} strokeWidth={1.5} /><span>Together for a<br />Greener Tomorrow</span></p>
                 </div>
-                <div className="space-y-2">
-                  <label htmlFor="contact-phone" className="text-[10px] font-black uppercase tracking-widest text-primary ml-1">Phone Number</label>
-                  <input
-                    id="contact-phone"
-                    required
-                    type="tel"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                    placeholder="+91 XXXXX XXXXX"
-                    className="w-full bg-gray-50 border-none px-6 py-4 rounded-xl text-sm focus:ring-2 focus:ring-[#00814a] transition-all"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label htmlFor="contact-subject" className="text-[10px] font-black uppercase tracking-widest text-primary ml-1">Subject</label>
-                  <input
-                    id="contact-subject"
-                    required
-                    type="text"
-                    value={formData.subject}
-                    onChange={(e) => setFormData({...formData, subject: e.target.value})}
-                    placeholder="e.g. Inquiry about Sandalwood Estates"
-                    className="w-full bg-gray-50 border-none px-6 py-4 rounded-xl text-sm focus:ring-2 focus:ring-[#00814a] transition-all"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label htmlFor="contact-message" className="text-[10px] font-black uppercase tracking-widest text-primary ml-1">Your Message</label>
-                  <textarea
-                    id="contact-message"
-                    required
-                    value={formData.message}
-                    onChange={(e) => setFormData({...formData, message: e.target.value})}
-                    rows={6}
-                    placeholder="How can we assist you today?"
-                    className="w-full bg-gray-50 border-none px-6 py-4 rounded-xl text-sm focus:ring-2 focus:ring-[#00814a] transition-all resize-none"
-                  />
-                </div>
-                <button 
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full bg-primary text-white py-5 rounded-2xl font-black uppercase tracking-[0.3em] text-xs hover:bg-[#00814a] transition-all shadow-xl flex items-center justify-center space-x-3 disabled:opacity-50"
-                >
-                  {isSubmitting ? (
-                    <span>Sending...</span>
-                  ) : (
-                    <>
-                      <MessageSquare size={16} />
-                      <span>Send Message</span>
-                    </>
-                  )}
-                </button>
               </form>
-            )}
-          </div>
-        </div>
+            </>
+          )}
+        </motion.div>
       </div>
     </section>
     </>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Phone, Mail } from 'lucide-react';
 import './Navbar.css';
 
@@ -8,7 +8,7 @@ const NAV_ITEMS = [
   { label: 'About Us', to: '/about' },
   { label: 'Services', to: '/#services' },
   { label: 'Leadership', to: '/leadership' },
-  { label: 'FAQ', to: '/#faq' },
+  { label: 'FAQ', to: '/faq' },
   { label: 'Careers', to: '/#careers' },
   { label: 'Contact Us', to: '/contact' },
 ];
@@ -16,6 +16,8 @@ const NAV_ITEMS = [
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const { pathname } = useLocation();
+  const isActive = (to: string) => to === '/faq' && pathname === '/faq';
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 20);
@@ -55,7 +57,7 @@ const Navbar: React.FC = () => {
           <ul className="igo-menu">
             {NAV_ITEMS.map(item => (
               <li key={item.label}>
-                <Link to={item.to} className="igo-link">{item.label}</Link>
+                <Link to={item.to} className={`igo-link${isActive(item.to) ? ' is-active' : ''}`} aria-current={isActive(item.to) ? 'page' : undefined}>{item.label}</Link>
               </li>
             ))}
           </ul>
@@ -79,7 +81,7 @@ const Navbar: React.FC = () => {
           <ul>
             {NAV_ITEMS.map(item => (
               <li key={item.label}>
-                <Link to={item.to} onClick={close}>{item.label}</Link>
+                <Link to={item.to} onClick={close} className={isActive(item.to) ? 'is-active' : undefined}>{item.label}</Link>
               </li>
             ))}
           </ul>

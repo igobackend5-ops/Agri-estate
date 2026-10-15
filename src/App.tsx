@@ -16,6 +16,7 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import { Suspense, lazy } from 'react';
 const Leadership = lazy(() => import('./pages/Leadership'));
+const Faq = lazy(() => import('./pages/Faq'));
 const Login = lazy(() => import('./pages/Login'));
 const SignUp = lazy(() => import('./pages/SignUp'));
 const Profile = lazy(() => import('./pages/Profile'));
@@ -570,6 +571,7 @@ function App() {
               <Route path="/post-requirement" element={<PostRequirement />} />
               <Route path="/about" element={<About />} />
               <Route path="/leadership" element={<Leadership />} />
+              <Route path="/faq" element={<Faq />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
@@ -601,7 +603,7 @@ function App() {
           {settings.enableChat && <LiveChatWidget />}
 
           {/* 26 Verticals Brands Marquee - Global above footer */}
-          {location.pathname !== '/leadership' && <BrandsMarquee />}
+          {!['/leadership', '/contact', '/faq'].includes(location.pathname) && <BrandsMarquee />}
 
           {/* Institutional Footer */}
           <footer className="bg-primary text-white pt-32 pb-16 border-t border-white/5 relative overflow-hidden">
